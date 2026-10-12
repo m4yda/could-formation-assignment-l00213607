@@ -19,6 +19,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - name: Sync index.html to S3
+      # get the new files and changes from Github and remove the deleted files
+      - name: Sync all changes to S3
         run: |
-          aws s3 cp index.html s3://static-web-910965284133-eu-west-1/index.html
+          aws s3 sync . s3://static-web-910965284133-eu-west-1 --delete
+
+      # empty the cashe afetr deploy
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ETB35GG4QK7AH --paths "/*"
