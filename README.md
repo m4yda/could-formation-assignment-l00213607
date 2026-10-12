@@ -69,3 +69,4 @@ In this project, I built and automated the deployment of a static website to **A
    git add .
    git commit -m "Updated site content"
    git push origin main
+3. Visit: https://d1r1nkvg0lvtb9.cloudfront.net   
